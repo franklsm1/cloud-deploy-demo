@@ -1,0 +1,9 @@
+version: 0.1
+
+phases:
+  build:
+    commands:
+      - ./gradlew clean build
+artifacts:
+  files:
+    - app/build/libs/demo-0.0.1.jar
