@@ -1,9 +1,13 @@
-version: 0.1
+version: 0.2
 
 phases:
   build:
     commands:
+      - echo Build started on `date`
       - gradle clean build
+      - echo Build finished on `date`
 artifacts:
   files:
-    - app/build/libs/demo-0.0.1.jar
+    - build/libs/demo-0.0.1.jar
+    - appspec.yml
+  discard-paths: yes
