@@ -1,14 +1,14 @@
-# Demo app w/directions on how to deploy to the cloud
+# Spring Boot app w/instructions on deploying to different cloud environments
 ## Prerequisites for all deployments:
 1. GitHub CLI installed
 2. Cloned this repo locally:
     - `git clone https://github.com/franklsm1/cloud-deploy-demo.git`
 3. `cd` into the newly cloned repos directory
 
-## How to deploy to AWS using the elastic beanstalk CLI
+# AWS Deployments using the elastic beanstalk CLI
 ### Requirements:
    - AWS account (free tier works perfectly)
-   - Elastic Beanstalk CLI installed (see below for instructions)
+   - Elastic Beanstalk (eb) CLI installed (see link at the bottom for instructions)
    - An AWS user access id and secret key (instructions found [here](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html#id_users_create_console) if needed)
 ### Steps
 1. Setup and configure this repo to work with AWS: `eb init`
@@ -17,7 +17,7 @@
     - choose an existing application or create a new one
     - choose Java for the platform (#11)
     - choose java 8 for the version
-    - select "N" when asked about codeCommit setup (see helpful links if interested in setting up an AWS pipeline)
+    - select "N" when asked about codeCommit setup (see link at the bottom if interested in setting up an AWS pipeline)
     - select "n" when asked about a key pair (unless you want to ssh into the instance at some point)
 2. Add the following config property to the newly created `.elasticbeanstalk/config.yml`:
     ```
@@ -78,6 +78,26 @@ deploy:
         4. Install EB CLI: `pip install awsebcli --upgrade –-user`
 
 
+# Cloud Foundry deployments
+### Requirements:
+1. Cloud foundry CLI installed (see link at the bottom for instructions)
+2. Free Account and a created "Org" on one CF supported cloud environment (example envs below):
+    - Both IBM cloud and PCF are free to sign up w/out a credit card
+    - [Link](https://www.ibm.com/cloud/info/try-ibm-cloud) to sign up for IBM Cloud
+    - [Link](https://pivotal.io/platform/pcf-tutorials/getting-started-with-pivotal-cloud-foundry/introduction) to sign up for Pivotal Cloud Foundry(PCF)
+
+### Steps
+1. Clean and build the project to create a jar: `./gradlew clean build`
+2. Point the cf CLI to the desired cloud environment
+    - Command for IBM Cloud: `cf api api.ng.bluemix.net --skip-ssl-validation`
+    - Command for PCF: `cf api api.run.pivotal.io --skip-ssl-validation`
+3. Login to the chosen environment: `cf login`
+4. Update the memory field in the [manifest.yml](./manifest.yml) config depending on chosen env
+   - The IBM max memory per instance for the free tier is 256MB
+   - In PCF the minimum memory needed to run this JAR is 610MB
+5. Push the jar to the cloud: `cf push -p build/libs/demo-0.0.1.jar`
+
 ## Helpful links:
 - [Install python, pip, and elastic beanstalk CLI](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install-linux.html)
 - [How to create an AWS pipeline](https://docs.aws.amazon.com/codebuild/latest/userguide/how-to-create-pipeline.html)
+- [Installing and getting started with the CF CLI](https://docs.cloudfoundry.org/cf-cli/)

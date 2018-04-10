@@ -1,7 +1,6 @@
 package io.allstate.example.demo.controller;
 
 import io.allstate.example.demo.domain.User;
-import io.allstate.example.demo.domain.UserRequest;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +12,9 @@ import java.util.Arrays;
 @RequestMapping("/users")
 public class UsersController {
 
-    @ResponseStatus(value = HttpStatus.OK)
     @GetMapping("")
-    @ApiOperation(value = "Return all users.", response = User.class, responseContainer = "List")
+    @ResponseStatus(value = HttpStatus.OK)
+    @ApiOperation(value = "Get all users", response = User.class, responseContainer = "List")
     public Iterable<User> getAllUsers() {
         User user1 = User.builder()
                 .firstName("Sean")
@@ -29,12 +28,12 @@ public class UsersController {
                 .birthYear("1986")
                 .build();
 
-        return Arrays.asList(user1,user2);
+        return Arrays.asList(user1, user2);
     }
 
-    @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping("")
-    public User postUser(@Valid @RequestBody UserRequest user) {
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public User postUser(@Valid @RequestBody User user) {
         return User.builder()
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())

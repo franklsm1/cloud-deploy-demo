@@ -1,0 +1,9 @@
+applications:
+- name: cf-demo
+# PCF needs minimum of 610MB to run this jar
+#  memory: 1G
+# IBM cloud max size for free tier allowed is 256MB
+  memory: 256MB
+  instances: 1
+  host: cf-demo-franklsm1
+  buildpack: java_buildpack
