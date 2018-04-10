@@ -9,5 +9,4 @@ phases:
 artifacts:
   files:
     - build/libs/demo-0.0.1.jar
-    - appspec.yml
   discard-paths: yes
