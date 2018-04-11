@@ -92,9 +92,8 @@ deploy:
     - Command for IBM Cloud: `cf api api.ng.bluemix.net --skip-ssl-validation`
     - Command for PCF: `cf api api.run.pivotal.io --skip-ssl-validation`
 3. Login to the chosen environment: `cf login`
-4. Update the memory field in the [manifest.yml](./manifest.yml) config depending on chosen env
-   - The IBM max memory per instance for the free tier is 256MB
-   - In PCF the minimum memory needed to run this JAR is 610MB
+4. (Optional) Update names config variables in the [manifest.yml](./manifest.yml)
+   - The IBM max memory per instance for the **FREE** tier is 256MB
 5. Push the jar to the cloud: `cf push -p build/libs/demo-0.0.1.jar`
 
 ## Helpful links:
