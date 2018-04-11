@@ -17,9 +17,9 @@ public class UsersController {
     @ApiOperation(value = "Get all users", response = User.class, responseContainer = "List")
     public Iterable<User> getAllUsers() {
         User user1 = User.builder()
-                .firstName("Sean")
+                .firstName("Tom")
                 .lastName("Franklin")
-                .birthYear("1991")
+                .birthYear("2")
                 .build();
 
         User user2 = User.builder()
